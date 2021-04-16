@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
-    'BestFood.apps.StoreConfig',
+    'BestFood.apps.BestFoodConfig',
 ]
 
 MIDDLEWARE = [
@@ -81,9 +81,9 @@ WSGI_APPLICATION = 'PurBeurre.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql', # on utilise l'adaptateur postgresql
-        'NAME': os.environ.get("NAME"), # le nom de notre base de donnees creee precedemment
-        'USER': os.environ.get("USER"), # attention : remplacez par votre nom d'utilisateur
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get("NAME"),
+        'USER': os.environ.get("USER"),
         'PASSWORD': os.environ.get("PASSWORD"),
         'HOST': '',
         'PORT': os.environ.get("PORT"),

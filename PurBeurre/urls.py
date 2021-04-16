@@ -17,8 +17,12 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
 
+import BestFood.views as views
+
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^$', views.index),
+    url(r'^bestfood/', include('BestFood.urls')),
+    url(r'^admin/', admin.site.urls)
 ]
 
 if settings.DEBUG:
