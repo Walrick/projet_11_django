@@ -7,5 +7,10 @@ from django.http import HttpResponse
 
 
 def index(request):
-    template = loader.get_template('bestfood/index.html')
+    template = loader.get_template('food/index.html')
+    return HttpResponse(template.render(request=request))
+
+
+def legal(request):
+    template = loader.get_template('food/legal.html')
     return HttpResponse(template.render(request=request))

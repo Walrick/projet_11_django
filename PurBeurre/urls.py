@@ -17,11 +17,11 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
 
-import BestFood.views as views
+import Food.views as views
 
 urlpatterns = [
     url(r'^$', views.index),
-    url(r'^bestfood/', include('BestFood.urls')),
+    url(r'^food/', include('Food.urls')),
     url(r'^admin/', admin.site.urls)
 ]
 
