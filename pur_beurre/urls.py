@@ -1,4 +1,4 @@
-"""PurBeurre URL Configuration
+"""pur_beurre URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -17,11 +17,11 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
 
-import Food.views as views
+import food.views as views
 
 urlpatterns = [
     url(r'^$', views.index),
-    url(r'^food/', include('Food.urls')),
+    url(r'^food/', include('food.urls')),
     url(r'^admin/', admin.site.urls)
 ]
 
