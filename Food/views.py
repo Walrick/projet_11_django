@@ -8,7 +8,7 @@ from django.http import HttpResponse
 
 def index(request):
     template = loader.get_template('food/index.html')
-    return HttpResponse(template.render(request=request))
+    return HttpResponse(template.render({"bonjour": 1}, request=request))
 
 
 def legal(request):
