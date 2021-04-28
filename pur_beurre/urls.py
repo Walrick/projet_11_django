@@ -22,7 +22,8 @@ import food.views as views
 urlpatterns = [
     url(r'^$', views.index),
     url(r'^food/', include('food.urls')),
-    url(r'^admin/', admin.site.urls)
+    url(r'^admin/', admin.site.urls),
+    url(r'^accounts/', include('accounts.urls')),
 ]
 
 if settings.DEBUG:

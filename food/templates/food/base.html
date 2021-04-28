@@ -35,10 +35,34 @@
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                        <li class="nav-item"><input type="text" placeholder="Chercher"></li>
-                        <li class="nav-item"><i class="fas fa-user"></i></li>
-                        <li class="nav-item"><img class="img-fluid" src="{% static 'food/assets/img/carrot.png' %}" alt="carrot" id="carrot"/></li>
-                        <li class="nav-item"><i class="fas fa-sign-out-alt"></i></li>
+                        <li class="nav-item">
+                            <input type="text" placeholder="Chercher">
+                        </li>
+                        <li class="nav-item">
+                            {% if user.is_authenticated %}
+                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Mon compte - {{ user }}">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                            {% else %}
+                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Créer un compte">
+                                    <i class="far fa-user"></i>
+                                </span>
+                            {% endif %}
+                        </li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Mes aliments">
+                                    <img class="img-fluid" src="{% static 'food/assets/img/carrot.png' %}" alt="carrot" id="carrot"/>
+                                </span>
+                            </li>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Déconnections">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                </span>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
