@@ -41,11 +41,15 @@
                         <li class="nav-item">
                             {% if user.is_authenticated %}
                                 <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Mon compte - {{ user }}">
-                                    <i class="fas fa-user"></i>
+                                    <a href="{% url 'my_account' %}">
+                                        <i class="fas fa-user"></i>
+                                    </a>
                                 </span>
                             {% else %}
-                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Créer un compte">
-                                    <i class="far fa-user"></i>
+                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Connection">
+                                    <a href="{% url 'login' %}">
+                                        <i class="far fa-user" ></i>
+                                    </a>
                                 </span>
                             {% endif %}
                         </li>

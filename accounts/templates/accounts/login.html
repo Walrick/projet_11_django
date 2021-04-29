@@ -4,15 +4,57 @@
 {% load static %}
 
 {% block content %}
-
-<section class="page-section bg-primary">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8 text-center" id="about_text">
-        <h2 class="text-black mt-0">Login</h2>
-      </div>
+<header class="page-section" id="header">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center justify-content-center text-center">
+            <div class="col-lg-10 align-self-end">
+                <h2 class="font-weight-light mb-5">Login</h2>
+                <hr class="divider my-4" />
+            </div>
+        </div>
     </div>
-  </div>
+</header>
+
+<section class="page-section">
+    <div class="container">
+        <div class="row justify-content-center">
+
+        {% if user_nok %}
+        <p>Erreur dans votre username ou password, veuillez réessayer.</p>
+        {% endif %}
+
+        {% if user_ok %}
+            <p>Authentification réussi</p>
+        {% endif %}
+
+        </div>
+        <div class="row justify-content-center">
+
+        <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td><a>username</a></td>
+                <td><input type="text" name="username" value="" id="username"></td>
+            </tr>
+            <tr>
+                <td> <a>password</a></td>
+                <td> <input type="text" name="password" value="" id="password"></td>
+            </tr>
+
+        </table>
+
+        <div class="row justify-content-center">
+
+            <input type="submit" value="login">
+            <input type="hidden" name="next" value="{{ next }}">
+
+        </form>
+
+            <a href="{% url 'join' %}"><input type="button" value="Créer un compte"></a>
+
+        </div>
+    </div>
 </section>
 
 {% endblock %}
