@@ -15,5 +15,41 @@
         </div>
     </div>
 </header>
+<section class="page-section">
+    <div class="container">
+        <div class="row justify-content-center">
 
+            <p>Veuillez remplir les champs suivants pour vous inscrire</p>
+
+        </div>
+        <div class="row justify-content-center">
+
+            <form method="post" action="{% url 'join' %}">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td><a>email</a></td>
+                    <td><input type="text" name="email" value="" id="email"></td>
+                </tr>
+                <tr>
+                    <td> <a>password</a></td>
+                    <td> <input type="text" name="password" value="" id="password"></td>
+                </tr>
+                <tr>
+                    <td> <a>username</a></td>
+                    <td> <input type="text" name="username" value="" id="username"></td>
+                </tr>
+
+            </table>
+
+                <div class="row justify-content-center">
+
+                    <input type="submit" value="Envoyer">
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</section>
 {% endblock %}

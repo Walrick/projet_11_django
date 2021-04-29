@@ -20,7 +20,7 @@
         <div class="row justify-content-center">
 
         {% if user_nok %}
-        <p>Erreur dans votre username ou password, veuillez réessayer.</p>
+        <p>Erreur dans votre email ou password, veuillez réessayer.</p>
         {% endif %}
 
         {% if user_ok %}
@@ -47,7 +47,6 @@
         <div class="row justify-content-center">
 
             <input type="submit" value="login">
-            <input type="hidden" name="next" value="{{ next }}">
 
         </form>
 
