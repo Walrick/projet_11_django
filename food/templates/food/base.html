@@ -62,7 +62,9 @@
                         {% if user.is_authenticated %}
                             <li class="nav-item">
                                 <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Déconnections">
-                                    <i class="fas fa-sign-out-alt"></i>
+                                    <a href="{% url 'logout' %}">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                    </a>
                                 </span>
                             </li>
                         {% endif %}

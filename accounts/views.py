@@ -8,7 +8,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 
 from django.contrib.auth import authenticate
+
 from django.contrib.auth import login as log
+from django.contrib.auth import logout as logou
 
 import accounts.form as form
 import accounts.models as model
@@ -46,6 +48,7 @@ def login(request):
 @login_required
 def logout(request):
     template = loader.get_template('accounts/logout.html')
+    logou(request)
     return HttpResponse(template.render(request=request))
 
 
@@ -60,5 +63,11 @@ def join(request):
         }
         response = model.create_user(user_raw)
         print(user_raw, response)
+        if response["response"] == "ok":
+            data = {
+                "join_user" : True
+            }
+            template = loader.get_template('accounts/login.html')
+            return HttpResponse(template.render(data, request=request))
 
     return HttpResponse(template.render(data, request=request))
