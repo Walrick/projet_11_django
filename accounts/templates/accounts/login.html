@@ -8,7 +8,7 @@
     <div class="container h-100">
         <div class="row h-100 align-items-center justify-content-center text-center">
             <div class="col-lg-10 align-self-end">
-                <h2 class="font-weight-light mb-5">Login</h2>
+                <h2 class="text-white font-weight-light mb-5">Login</h2>
                 <hr class="divider my-4" />
             </div>
         </div>
@@ -20,7 +20,7 @@
         <div class="row justify-content-center">
 
         {% if user_nok %}
-        <p>Erreur dans votre email ou password, veuillez réessayer.</p>
+            <p>Erreur dans votre email ou password, veuillez réessayer.</p>
         {% endif %}
 
         {% if user_ok %}
@@ -52,9 +52,11 @@
 
             <input type="submit" value="login">
 
+            <input type="hidden" name="next" value="{{ request.GET.next }}"/>
         </form>
 
             <a href="{% url 'join' %}"><input type="button" value="Créer un compte"></a>
+
 
         </div>
     </div>

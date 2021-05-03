@@ -10046,13 +10046,12 @@ hr.light {
   }
   #mainNav .navbar-nav .nav-item .nav-link {
     color: rgba(255, 255, 255, 0.7);
-    padding: 0 1rem;
   }
   #mainNav .navbar-nav .nav-item .nav-link:hover {
     color: #fff;
   }
   #mainNav .navbar-nav .nav-item:last-child .nav-link {
-    padding-right: 0;
+    padding-right: 5px;
   }
   #mainNav.navbar-scrolled {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
@@ -10157,10 +10156,7 @@ header.masthead h1 {
   background-color: #DE9440 !important;
 }
 
-#carrot {
-  width: 15%;
-}
-
 #header {
-  background-color: #E8A75D;
+  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../assets/img/bg-masthead.jpg");
+  background-position: center;
 }

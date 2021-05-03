@@ -20,14 +20,15 @@ from django.contrib import admin
 import food.views as views
 
 urlpatterns = [
-    url(r'^$', views.index),
-    url(r'^food/', include('food.urls')),
-    url(r'^admin/', admin.site.urls),
-    url(r'^accounts/', include('accounts.urls')),
+    url(r"^$", views.index),
+    url(r"^food/", include("food.urls")),
+    url(r"^admin/", admin.site.urls),
+    url(r"^accounts/", include("accounts.urls")),
 ]
 
 if settings.DEBUG:
     import debug_toolbar
+
     urlpatterns = [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
+        url(r"^__debug__/", include(debug_toolbar.urls)),
     ] + urlpatterns
