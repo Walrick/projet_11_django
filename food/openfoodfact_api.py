@@ -51,8 +51,8 @@ class ApiOpenFoodFact:
         # Join the parts of the URL together into one string.
         params = urllib.parse.urlencode(
             {
-                'countries': 'France',
-                'json': 1,
+                "countries": "France",
+                "json": 1,
             }
         )
 
