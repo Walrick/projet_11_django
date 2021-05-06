@@ -9,7 +9,6 @@ import urllib.request
 
 
 class ApiOpenFoodFact:
-
     BASE_URL = "https://fr.openfoodfacts.org/"
 
     def query(self, url):
@@ -66,12 +65,41 @@ class ApiOpenFoodFact:
         Build product by query in category
         :param category: str
         :param page: int
-        :return: [{"product_name": str,
+        :return: {
+        "products" :[{"product_name": str,
                 "stores": str,
                 "nutrition_grade_fr": str,
                 "traces: str,
                 "allergens": str,
                 "url": str,
-                ... }..]
+                ... }..],
+        "page" : url,
+        "page_count" : int,
+        "page_size" : int,
+        "skip" : int,
+        "count" : int
+        }
+
                 Look complete documentation in OpenFoodFact API
         """
+
+        params = urllib.parse.urlencode(
+            {
+                'action': 'process',
+                'tagtype_0': 'states',  # which subject is selected (states)
+                'tag_contains_0': 'contains',  # contains or not
+                'tag_0': "en:checked",  # parameters to choose
+                'tagtype_1': 'categories',
+                'tag_contains_1': 'contains',
+                'tag_1': category,
+                'countries': 'France',
+                'json': 1,
+                'page': page,
+                'page_size' : 250
+            }
+        )
+
+        url = f"{self.BASE_URL}cgi/search.pl/?{params}"
+
+        response = self.query(url)
+        return response
