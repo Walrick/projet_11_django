@@ -72,7 +72,12 @@ class ApiOpenFoodFact:
                 "traces: str,
                 "allergens": str,
                 "url": str,
-                ... }..],
+                "quantity", str,
+                "id" : int,
+                "image_front_url" : str,
+                "image_front_small_url" : str,
+                "ingredients_text", str
+                ... },..],
         "page" : url,
         "page_count" : int,
         "page_size" : int,
