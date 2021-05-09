@@ -39,7 +39,6 @@ class Command(BaseCommand):
                 Category.objects.all().delete()
                 print("Toutes les catégories sont supprimées")
 
-
             if "get" in options["category"]:
                 list_category = options["category"].split(":")
                 id = list_category[1]
@@ -66,7 +65,9 @@ class Command(BaseCommand):
 
                             # check if products exist
                             try:
-                                item = Products.objects.get(id_openfoodfact=products["id"])
+                                item = Products.objects.get(
+                                    id_openfoodfact=products["id"]
+                                )
                                 item.category.add(c)
                             except:
                                 item = None
@@ -95,8 +96,6 @@ class Command(BaseCommand):
                                         traces.append("".join(tra))
                                     products["traces"] = ", ".join(traces)
 
-
-
                                 p = Products(
                                     name=products["product_name"],
                                     stores=products["stores"],
@@ -107,8 +106,10 @@ class Command(BaseCommand):
                                     quantity=products["quantity"],
                                     id_openfoodfact=products["id"],
                                     image_front_url=products["image_front_url"],
-                                    image_front_small_url=products["image_front_small_url"],
-                                    ingredients_text=products["ingredients_text"]
+                                    image_front_small_url=products[
+                                        "image_front_small_url"
+                                    ],
+                                    ingredients_text=products["ingredients_text"],
                                 )
                                 p.save()
                                 p.category.add(c)

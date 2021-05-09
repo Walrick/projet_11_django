@@ -90,17 +90,17 @@ class ApiOpenFoodFact:
 
         params = urllib.parse.urlencode(
             {
-                'action': 'process',
-                'tagtype_0': 'states',  # which subject is selected (states)
-                'tag_contains_0': 'contains',  # contains or not
-                'tag_0': "en:checked",  # parameters to choose
-                'tagtype_1': 'categories',
-                'tag_contains_1': 'contains',
-                'tag_1': category,
-                'countries': 'France',
-                'json': 1,
-                'page': page,
-                'page_size' : 250
+                "action": "process",
+                "tagtype_0": "states",  # which subject is selected (states)
+                "tag_contains_0": "contains",  # contains or not
+                "tag_0": "en:checked",  # parameters to choose
+                "tagtype_1": "categories",
+                "tag_contains_1": "contains",
+                "tag_1": category,
+                "countries": "France",
+                "json": 1,
+                "page": page,
+                "page_size": 250,
             }
         )
 

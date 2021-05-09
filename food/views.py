@@ -5,12 +5,40 @@ from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
 
+from food.models import Products, Category
+
 
 def index(request):
     template = loader.get_template("food/index.html")
-    return HttpResponse(template.render({"bonjour": 1}, request=request))
+
+    return HttpResponse(template.render(request=request))
 
 
 def legal(request):
     template = loader.get_template("food/legal.html")
     return HttpResponse(template.render(request=request))
+
+
+def search(request):
+    template = loader.get_template("food/search.html")
+
+    s = request.GET.get("search", None)
+    try:
+        result = Products.objects.filter(name__icontains=s)
+    except:
+        result = None
+
+    dic = {"result": result, "search": s}
+    return HttpResponse(template.render(dic, request=request))
+
+
+def product(request, id):
+    template = loader.get_template("food/product.html")
+
+    try:
+        result = Products.objects.get(id=id)
+    except:
+        result = None
+
+    dic = {"product": result}
+    return HttpResponse(template.render(dic, request=request))

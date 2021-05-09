@@ -1,0 +1,59 @@
+
+{% extends 'food/base.html' %}
+
+<!-- load for django-->
+{% load static %}
+
+{% block content %}
+<header class="page-section" id="header_product" style="background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url('{{ product.image_front_url }}') no-repeat; background-position: center">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center justify-content-center text-center">
+            <div class="col-lg-10 align-self-end">
+                <h2 class="text-white font-weight-light mb-5">{{ product.name }}</h2>
+                <hr class="divider my-4" />
+            </div>
+        </div>
+    </div>
+</header>
+<section class="page-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 text-center">
+                {% if product.nutrition_grade_fr == "a" %}
+                    <img class="img-fluid" src="{% static 'food/assets/img/nutriscore/A.png' %}" alt="nutriscore_A" id="nutriscore_A"/>
+                {% elif product.nutrition_grade_fr == "b" %}
+                    <img class="img-fluid" src="{% static 'food/assets/img/nutriscore/B.png' %}" alt="nutriscore_B" id="nutriscore_B"/>
+                {% elif product.nutrition_grade_fr == "c" %}
+                    <img class="img-fluid" src="{% static 'food/assets/img/nutriscore/C.png' %}" alt="nutriscore_C" id="nutriscore_C"/>
+                {% elif product.nutrition_grade_fr == "d" %}
+                    <img class="img-fluid" src="{% static 'food/assets/img/nutriscore/D.png' %}" alt="nutriscore_D" id="nutriscore_D"/>
+                {% elif product.nutrition_grade_fr == "e" %}
+                    <img class="img-fluid" src="{% static 'food/assets/img/nutriscore/E.png' %}" alt="nutriscore_E" id="nutriscore_E"/>
+                {% elif product.nutrition_grade_fr == "Non applicable" %}
+                    <p>Nutri-score Non applicable</p>
+                {% endif %}
+            </div>
+            <div class="col-lg-6 col-md-12 text-center py-5">
+                <p>repère nutritionnel pour 100gr : </p>
+            </div>
+        </div>
+        <div class="text-center my-4">
+                <a href={{ product.url }}>Lien vers Open Food Facts</a>
+        </div>
+        <div class="text-center">
+                <p>Ingredient : {{ product.ingredients_text }} </p>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-12 text-center">
+                <p>Allergènes : {{ product.allergens }}</p>
+            </div>
+            <div class="col-lg-6 col-md-12 text-center">
+                <p>Traces : {{ product.traces }}</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+{% endblock %}
