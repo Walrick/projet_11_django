@@ -18,7 +18,7 @@
 <section class="page-section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-md-12 text-center">
+            <div class="col-lg-6 col-md-12 my-auto text-center">
                 {% if product.nutrition_grade_fr == "a" %}
                     <img class="img-fluid" src="{% static 'food/assets/img/nutriscore/A.png' %}" alt="nutriscore_A" id="nutriscore_A"/>
                 {% elif product.nutrition_grade_fr == "b" %}
@@ -33,12 +33,14 @@
                     <p>Nutri-score Non applicable</p>
                 {% endif %}
             </div>
-            <div class="col-lg-6 col-md-12 text-center py-5">
+            <div class="col-lg-6 col-md-12 py-5">
                 <p>Repère nutritionnel pour 100gr : </p>
-                <p>{{ product.fat_100g }}gr Matières grasses / Lipides en quantité {{ product.fat_levels }}</p>
-                <p>{{ product.saturated_fat_100g }}gr Acides gras saturés en quantité {{ product.saturated_fat_levels }}</p>
-                <p>{{ product.sugars_100g }}gr Sucres en quantité {{ product.sugars_levels }}</p>
-                <p>{{ product.salt_100g }}gr Sel en quantité {{ product.salt_levels }}</p>
+                <ul>
+                    <li>{{ product.fat_100g }}gr <strong>Matières grasses / Lipides</strong> en quantité {{ product.fat_levels }}</li>
+                    <li>{{ product.saturated_fat_100g }}gr <strong>Acides gras saturés</strong> en quantité {{ product.saturated_fat_levels }}</li>
+                    <li>{{ product.sugars_100g }}gr <strong>Sucres</strong> en quantité {{ product.sugars_levels }}</li>
+                    <li>{{ product.salt_100g }}gr <strong>Sel</strong> en quantité {{ product.salt_levels }}</li>
+                </ul>
             </div>
         </div>
         <div class="text-center my-4">

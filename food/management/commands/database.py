@@ -45,7 +45,6 @@ class Command(BaseCommand):
                 item = Category.objects.get(pk=id)
                 print(item.name)
 
-
         if options["product"] is not None:
 
             if options["product"] == "up" or options["product"] == "update":
@@ -101,54 +100,73 @@ class Command(BaseCommand):
                                 nutrient_levels = {}
                                 if "nutrient_levels" in products:
                                     if "fat" in products["nutrient_levels"]:
-                                        nutrient_levels["fat"] = products["nutrient_levels"]["fat"]
-                                    else :
+                                        nutrient_levels["fat"] = products[
+                                            "nutrient_levels"
+                                        ]["fat"]
+                                    else:
                                         nutrient_levels["fat"] = "Non applicable"
 
                                     if "salt" in products["nutrient_levels"]:
-                                        nutrient_levels["salt"] = products["nutrient_levels"]["salt"]
-                                    else :
+                                        nutrient_levels["salt"] = products[
+                                            "nutrient_levels"
+                                        ]["salt"]
+                                    else:
                                         nutrient_levels["salt"] = "Non applicable"
 
                                     if "saturated-fat" in products["nutrient_levels"]:
-                                        nutrient_levels["saturated-fat"] = products["nutrient_levels"]["saturated-fat"]
-                                    else :
-                                        nutrient_levels["saturated-fat"] = "Non applicable"
+                                        nutrient_levels["saturated-fat"] = products[
+                                            "nutrient_levels"
+                                        ]["saturated-fat"]
+                                    else:
+                                        nutrient_levels[
+                                            "saturated-fat"
+                                        ] = "Non applicable"
 
                                     if "sugars" in products["nutrient_levels"]:
-                                        nutrient_levels["sugars"] = products["nutrient_levels"]["sugars"]
-                                    else :
+                                        nutrient_levels["sugars"] = products[
+                                            "nutrient_levels"
+                                        ]["sugars"]
+                                    else:
                                         nutrient_levels["sugars"] = "Non applicable"
 
-                                else :
+                                else:
                                     nutrient_levels = {
-                                        "fat" : "Non applicable",
-                                        "salt" : "Non applicable",
-                                        "saturated-fat" : "Non applicable",
-                                        "sugars" : "Non applicable"
+                                        "fat": "Non applicable",
+                                        "salt": "Non applicable",
+                                        "saturated-fat": "Non applicable",
+                                        "sugars": "Non applicable",
                                     }
 
                                 # change nutriments if not exist:
                                 nutriments = {}
                                 if "nutriments" in products:
                                     if "fat_100g" in products["nutriments"]:
-                                        nutriments["fat_100g"] = products["nutriments"]["fat_100g"]
+                                        nutriments["fat_100g"] = products["nutriments"][
+                                            "fat_100g"
+                                        ]
                                     else:
                                         nutriments["fat_100g"] = "Non applicable"
 
                                     if "salt_100g" in products["nutriments"]:
-                                        nutriments["salt_100g"] = products["nutriments"]["salt_100g"]
+                                        nutriments["salt_100g"] = products[
+                                            "nutriments"
+                                        ]["salt_100g"]
                                     else:
                                         nutriments["salt_100g"] = "Non applicable"
 
                                     if "saturated-fat_100g" in products["nutriments"]:
-                                        nutriments["saturated-fat_100g"] = products["nutriments"][
-                                            "saturated-fat_100g"]
+                                        nutriments["saturated-fat_100g"] = products[
+                                            "nutriments"
+                                        ]["saturated-fat_100g"]
                                     else:
-                                        nutriments["saturated-fat_100g"] = "Non applicable"
+                                        nutriments[
+                                            "saturated-fat_100g"
+                                        ] = "Non applicable"
 
                                     if "sugars_100g" in products["nutrient_levels"]:
-                                        nutriments["sugars_100g"] = products["nutriments"]["sugars_100g"]
+                                        nutriments["sugars_100g"] = products[
+                                            "nutriments"
+                                        ]["sugars_100g"]
                                     else:
                                         nutriments["sugars_100g"] = "Non applicable"
 
@@ -157,9 +175,8 @@ class Command(BaseCommand):
                                         "fat_100g": "Non applicable",
                                         "salt_100g": "Non applicable",
                                         "saturated-fat_100g": "Non applicable",
-                                        "sugars_100g": "Non applicable"
+                                        "sugars_100g": "Non applicable",
                                     }
-
 
                                 p = Products(
                                     name=products["product_name"],
@@ -172,14 +189,16 @@ class Command(BaseCommand):
                                     image_front_small_url=products[
                                         "image_front_small_url"
                                     ],
-                                    fat_levels= nutrient_levels["fat"],
-                                    salt_levels = nutrient_levels["salt"],
-                                    saturated_fat_levels = nutrient_levels["saturated-fat"],
-                                    sugars_levels = nutrient_levels["sugars"],
-                                    fat_100g = nutriments["fat_100g"],
-                                    salt_100g = nutriments["salt_100g"],
-                                    saturated_fat_100g = nutriments["saturated-fat_100g"],
-                                    sugars_100g = nutriments["sugars_100g"],
+                                    fat_levels=nutrient_levels["fat"],
+                                    salt_levels=nutrient_levels["salt"],
+                                    saturated_fat_levels=nutrient_levels[
+                                        "saturated-fat"
+                                    ],
+                                    sugars_levels=nutrient_levels["sugars"],
+                                    fat_100g=nutriments["fat_100g"],
+                                    salt_100g=nutriments["salt_100g"],
+                                    saturated_fat_100g=nutriments["saturated-fat_100g"],
+                                    sugars_100g=nutriments["sugars_100g"],
                                     ingredients_text=products["ingredients_text"],
                                 )
                                 p.save()
@@ -189,10 +208,11 @@ class Command(BaseCommand):
 
             if options["product"] == "test":
                 api = api_openfoodfact.ApiOpenFoodFact()
-                response = api.product_requests_by_category("Aliments et boissons à base de végétaux", 1)
+                response = api.product_requests_by_category(
+                    "Aliments et boissons à base de végétaux", 1
+                )
                 for key in response["products"][0].keys():
                     print(key, " : ", response["products"][0][key])
-
 
             if options["product"] == "del":
                 Products.objects.all().delete()

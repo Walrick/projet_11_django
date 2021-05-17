@@ -22,6 +22,8 @@ def legal(request):
 def search(request):
     template = loader.get_template("food/search.html")
 
+    select = request.GET.get("check", None)
+    print(select)
     s = request.GET.get("search", None)
     try:
         result = Products.objects.filter(name__icontains=s)
