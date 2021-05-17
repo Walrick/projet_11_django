@@ -20,10 +20,25 @@
          <div class="row">
              {% for r in result %}
              <div class="col-lg-4 col-md-12 text-center">
-                 <div class="mt-5">
+                 <div class="mt-5 position-relative">
                      <a href="{% url 'product' id=r.id %}" >
+                         {% if r.nutrition_grade_fr == "a" %}
+                            <img class="img-fluid" src="{% static 'food/assets/img/nutri_ico/nutri_A.png' %}" alt="nutriscore_A" id="nutriscore"/>
+                         {% elif r.nutrition_grade_fr == "b" %}
+                            <img class="img-fluid" src="{% static 'food/assets/img/nutri_ico/nutri_B.png' %}" alt="nutriscore_B" id="nutriscore"/>
+                         {% elif r.nutrition_grade_fr == "c" %}
+                            <img class="img-fluid" src="{% static 'food/assets/img/nutri_ico/nutri_C.png' %}" alt="nutriscore_C" id="nutriscore"/>
+                         {% elif r.nutrition_grade_fr == "d" %}
+                            <img class="img-fluid" src="{% static 'food/assets/img/nutri_ico/nutri_D.png' %}" alt="nutriscore_D" id="nutriscore"/>
+                         {% elif r.nutrition_grade_fr == "e" %}
+                            <img class="img-fluid" src="{% static 'food/assets/img/nutri_ico/nutri_E.png' %}" alt="nutriscore_E" id="nutriscore"/>
+                         {% elif r.nutrition_grade_fr == "Non applicable" %}
+                            <p>Nutri-score Non applicable</p>
+                         {% endif %}
+
                          <img src="{{ r.image_front_small_url }}">
                          <p>{{ r.name }}</p>
+
                      </a>
                  </div>
              </div>

@@ -76,7 +76,13 @@ class ApiOpenFoodFact:
                 "id" : int,
                 "image_front_url" : str,
                 "image_front_small_url" : str,
-                "ingredients_text", str
+                "ingredients_text", str,
+                "nutrient_levels"  :  {'fat': str, 'salt': str, 'saturated-fat': str, 'sugars': str},
+                "nutriments" {
+                    'fat_100g': float,
+                    'salt_100g': float,
+                    'saturated-fat_100g': float,
+                    'sugars_100g': float,...}
                 ... },..],
         "page" : url,
         "page_count" : int,
@@ -85,7 +91,7 @@ class ApiOpenFoodFact:
         "count" : int
         }
 
-                Look complete documentation in OpenFoodFact API
+                Look complete documentation in OpenFoodFacts API
         """
 
         params = urllib.parse.urlencode(
