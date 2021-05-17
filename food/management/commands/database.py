@@ -148,7 +148,7 @@ class Command(BaseCommand):
                                         nutriments["saturated-fat_100g"] = "Non applicable"
 
                                     if "sugars_100g" in products["nutrient_levels"]:
-                                        nutriments["sugars_100g"] = products["nutriments"]["sugars"]
+                                        nutriments["sugars_100g"] = products["nutriments"]["sugars_100g"]
                                     else:
                                         nutriments["sugars_100g"] = "Non applicable"
 

@@ -34,7 +34,11 @@
                 {% endif %}
             </div>
             <div class="col-lg-6 col-md-12 text-center py-5">
-                <p>repère nutritionnel pour 100gr : </p>
+                <p>Repère nutritionnel pour 100gr : </p>
+                <p>{{ product.fat_100g }}gr Matières grasses / Lipides en quantité {{ product.fat_levels }}</p>
+                <p>{{ product.saturated_fat_100g }}gr Acides gras saturés en quantité {{ product.saturated_fat_levels }}</p>
+                <p>{{ product.sugars_100g }}gr Sucres en quantité {{ product.sugars_levels }}</p>
+                <p>{{ product.salt_100g }}gr Sel en quantité {{ product.salt_levels }}</p>
             </div>
         </div>
         <div class="text-center my-4">
