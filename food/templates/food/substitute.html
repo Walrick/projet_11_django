@@ -4,20 +4,25 @@
 {% load static %}
 
 {% block content %}
+
 <header class="page-section" id="header">
     <div class="container h-100">
         <div class="row h-100 align-items-center justify-content-center text-center">
             <div class="col-lg-10 align-self-end">
-                <h2 class="text-white font-weight-light mb-5">Résultat de la recherche</h2>
-                <p class="text-white"> {{ search }}</p>
+                <h2 class="text-white font-weight-light mb-5">Résultat de la recherche du substitut</h2>
+                <p class="text-white"> {{ product.name }}</p>
                 <hr class="divider my-4" />
             </div>
         </div>
     </div>
 </header>
 <section class="page-section">
+    <div class="text-center">
+        <p>Vous pouvez remplacer votre aliment par :</p>
+    </div>
     <div class="container">
          <div class="row">
+
              {% for r in result %}
              <div class="col-lg-4 col-md-12 text-center">
                  <div class="mt-5 position-relative">
@@ -40,9 +45,11 @@
                          <img src="{{ r.image_front_small_url }}">
                          <p>{{ r.name }}</p>
                      </a>
-                     <a href="{% url 'substitute' id=r.id %}" >
-                        <p>Sélectionner</p>
-                     </a>
+                    <form method="get" action="{% url 'my_product' %}">
+                        <button  type="submit" name="save_id" value="{{ r.id }}">
+                            <i class="fas fa-save"></i> Sauvegarder
+                        </button>
+                    </form>
 
                  </div>
              </div>

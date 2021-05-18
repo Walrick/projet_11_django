@@ -4,6 +4,7 @@
 from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 
 from food.models import Products, Category
 
@@ -48,6 +49,22 @@ def product(request, id):
     return HttpResponse(template.render(dic, request=request))
 
 
+def substitute(request, id):
+    template = loader.get_template("food/substitute.html")
+    data = {}
+    try:
+        product = Products.objects.get(id=id)
+    except:
+        product = None
+    data["product"] = product
+    cat = product.category.all()
+
+    print(cat[0].name)
+
+    return HttpResponse(template.render(data, request=request))
+
+
+@login_required
 def my_product(request):
     template = loader.get_template("food/my_product.html")
     data = {}
