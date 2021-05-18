@@ -12,4 +12,5 @@ urlpatterns = [
     url(r"^legal", views.legal, name="legal-mention"),
     url(r"^search", views.search, name="search"),
     url(r"^product/(?P<id>\d+)", views.product, name="product"),
+    url(r"^my_product", views.my_product, name="my_product"),
 ]

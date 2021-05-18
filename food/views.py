@@ -21,8 +21,9 @@ def legal(request):
 
 def search(request):
     template = loader.get_template("food/search.html")
+    data = {}
 
-    select = request.GET.get("check", None)
+    select = request.GET.get("save_id", None)
     print(select)
     s = request.GET.get("search", None)
     try:
@@ -30,8 +31,9 @@ def search(request):
     except:
         result = None
 
-    dic = {"result": result, "search": s}
-    return HttpResponse(template.render(dic, request=request))
+    data["result"] = result
+    data["search"] = s
+    return HttpResponse(template.render(data, request=request))
 
 
 def product(request, id):
@@ -44,3 +46,10 @@ def product(request, id):
 
     dic = {"product": result}
     return HttpResponse(template.render(dic, request=request))
+
+
+def my_product(request):
+    template = loader.get_template("food/my_product.html")
+    data = {}
+
+    return HttpResponse(template.render(data, request=request))
