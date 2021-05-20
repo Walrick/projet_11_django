@@ -2,6 +2,7 @@
 # -*- coding: utf8 -*-
 
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -29,3 +30,8 @@ class Products(models.Model):
     saturated_fat_100g = models.CharField(max_length=20)
     sugars_100g = models.CharField(max_length=20)
     category = models.ManyToManyField(Category)
+
+
+class Substitut(models.Model):
+    product = models.ManyToManyField(Products)
+    user = models.ManyToManyField(User)

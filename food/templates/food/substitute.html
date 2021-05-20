@@ -44,11 +44,9 @@
                          <img src="{{ r.image_front_small_url }}">
                          <p>{{ r.name }}</p>
                      </a>
-                    <form method="get" action="{% url 'my_product' %}">
-                        <button  type="submit" name="save_id" value="{{ r.id }}">
-                            <i class="fas fa-save"></i> Sauvegarder
-                        </button>
-                    </form>
+                    <a href="{% url 'my_product' id=r.id %}" >
+                        <i class="fas fa-save"></i> Sauvegarder
+                    </a>
 
                  </div>
              </div>

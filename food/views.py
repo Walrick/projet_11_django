@@ -5,9 +5,10 @@ from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
-from food.models import Products, Category
+from food.models import Products, Category, Substitut
 
 
 def index(request):
@@ -94,8 +95,18 @@ def substitute(request, id):
 
 
 @login_required
-def my_product(request):
+def my_product(request, id):
     template = loader.get_template("food/my_product.html")
     data = {}
+
+    p = Products.objects.get(id=id)
+    try:
+        s = Substitut.product.get(id=id)
+        data["product"] = s
+        data["product_found"] = True
+    except:
+        pass
+
+
 
     return HttpResponse(template.render(data, request=request))

@@ -16,6 +16,11 @@
     </div>
 </header>
 <section class="page-section">
+    {% if product_found %}
+    <div class="text-center">
+        <p>Votre produit {{ product.name }} et déjà enregistré</p>
+    </div>
+    {% endif %}
     <div class="container">
          <div class="row">
              {% for r in result %}
