@@ -54,12 +54,7 @@ def product(request, id):
 
 def substitute(request, id):
     template = loader.get_template("food/substitute.html")
-    list_nutri = {"a": 1,
-                  "b": 2,
-                  "c": 3,
-                  "d": 4,
-                  "e": 5,
-                  "Non applicable": 6}
+    list_nutri = {"a": 1, "b": 2, "c": 3, "d": 4, "e": 5, "Non applicable": 6}
     data = {}
     try:
         product = Products.objects.get(id=id)
@@ -80,7 +75,7 @@ def substitute(request, id):
             p = None
 
     paginator = Paginator(list_product, 21)
-    page = request.GET.get('page')
+    page = request.GET.get("page")
     try:
         result = paginator.page(page)
     except PageNotAnInteger:
@@ -101,7 +96,7 @@ def my_product(request, id):
     data = {}
 
     # Load product
-    if id == '0':
+    if id == "0":
         p = None
     else:
         p = Products.objects.get(id=id)
