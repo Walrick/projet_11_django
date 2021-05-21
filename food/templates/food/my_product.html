@@ -18,7 +18,12 @@
 <section class="page-section">
     {% if product_found %}
     <div class="text-center">
-        <p>Votre produit {{ product.name }} et déjà enregistré</p>
+        <p>Votre produit {{ product.name }} est déjà enregistré</p>
+    </div>
+    {% endif %}
+    {% if product_new %}
+    <div class="text-center">
+        <p>Votre produit {{ product.name }} vient d'être ajouté</p>
     </div>
     {% endif %}
     <div class="container">
@@ -44,12 +49,6 @@
                          <img src="{{ r.image_front_small_url }}">
                          <p>{{ r.name }}</p>
                      </a>
-                     <div class="row">
-
-                         <i class="fas fa-save"></i>
-                         <p>Sauvegarder</p>
-
-                     </div>
                  </div>
 
              </div>

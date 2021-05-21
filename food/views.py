@@ -6,9 +6,10 @@ from django.template import loader
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
-from food.models import Products, Category, Substitut
+from food.models import Products, Category, Customer
 
 
 def index(request):
@@ -53,12 +54,12 @@ def product(request, id):
 
 def substitute(request, id):
     template = loader.get_template("food/substitute.html")
-    list_nutri = {"a" : 1,
-                  "b" : 2,
-                  "c" : 3,
-                  "d" : 4,
-                  "e" : 5,
-                  "Non applicable" : 6}
+    list_nutri = {"a": 1,
+                  "b": 2,
+                  "c": 3,
+                  "d": 4,
+                  "e": 5,
+                  "Non applicable": 6}
     data = {}
     try:
         product = Products.objects.get(id=id)
@@ -69,7 +70,7 @@ def substitute(request, id):
     list_cat = product.category.all()
     list_product = []
     for cat in list_cat:
-        try :
+        try:
             list_p = Products.objects.filter(category__products__id=cat.pk)
             for p in list_p:
                 num_prod = list_nutri[p.nutrition_grade_fr]
@@ -99,14 +100,31 @@ def my_product(request, id):
     template = loader.get_template("food/my_product.html")
     data = {}
 
-    p = Products.objects.get(id=id)
+    # Load product
+    if id == '0':
+        p = None
+    else:
+        p = Products.objects.get(id=id)
+
+    # Load user or create
+    current_user = request.user
     try:
-        s = Substitut.product.get(id=id)
-        data["product"] = s
-        data["product_found"] = True
+        customer = Customer.objects.get(user_id=current_user.id)
     except:
-        pass
+        customer = Customer(user_id=current_user.id)
+        customer.save()
 
+    if p is not None:
+        try:
+            s = customer.substitut.get(id=id)
+            data["product"] = s
+            data["product_found"] = True
+        except:
+            customer.substitut.add(p)
+            data["product"] = p
+            data["product_new"] = True
 
+    result = customer.substitut.all()
+    data["result"] = result
 
     return HttpResponse(template.render(data, request=request))

@@ -32,6 +32,6 @@ class Products(models.Model):
     category = models.ManyToManyField(Category)
 
 
-class Substitut(models.Model):
-    product = models.ManyToManyField(Products)
-    user = models.ManyToManyField(User)
+class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    substitut = models.ManyToManyField(Products)
