@@ -10167,3 +10167,13 @@ header.masthead h1 {
    right: 10%;
 }
 
+#footer {
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+}
+
+#page-section {
+    min-height: 100%;
+    position: relative;
+}
