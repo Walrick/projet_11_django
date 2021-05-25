@@ -5,7 +5,7 @@ from django.test import Client
 from accounts.models import create_user
 
 
-class TestLogin(TestCase):
+class TestAccounts(TestCase):
 
     def setUp(self):
         self.user_test = create_user({"username": "user_test",
@@ -22,3 +22,12 @@ class TestLogin(TestCase):
         c = Client()
         response = c.post('/accounts/login/', {"username": "user_test_false", "password": "pass_test_false"})
         self.assertEqual(response.context["user_nok"], True)
+
+    def test_my_account(self):
+        c = Client()
+        response = c.get('/accounts/my_account/', follow=True)
+        self.assertEqual(response.redirect_chain, [('/accounts/login/?next=/accounts/my_account/', 302)])
+
+        c.post('/accounts/login/', {"username": "user_test", "password": "pass_test"})
+        response = c.get('/accounts/my_account/', follow=True)
+        self.assertEqual(response.redirect_chain, [])

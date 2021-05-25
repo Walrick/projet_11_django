@@ -33,7 +33,6 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             log(request, user)
-            print("login ok")
             data["user_ok"] = True
             data["user_nok"] = False
             # redirection
@@ -44,7 +43,6 @@ def login(request):
                 return redirect(nxt)
 
         else:
-            print("login nok")
             data["user_nok"] = True
     return HttpResponse(template.render(data, request=request))
 
