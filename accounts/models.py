@@ -13,7 +13,6 @@ def create_user(data):
         user = User.objects.create_user(
             data["username"], data["email"], data["password"]
         )
-        print(user, "ok")
         return {"user": user, "response": "ok"}
     else:
         return {"user": user, "response": "error"}

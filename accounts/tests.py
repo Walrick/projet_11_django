@@ -18,6 +18,7 @@ class TestAccounts(TestCase):
         response = c.post('/accounts/login/', {"username": "user_test", "password": "pass_test"})
         self.assertEqual(response.context["user_ok"], True)
 
+
     def test_login_failure(self):
         c = Client()
         response = c.post('/accounts/login/', {"username": "user_test_false", "password": "pass_test_false"})
