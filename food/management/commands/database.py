@@ -96,47 +96,6 @@ class Command(BaseCommand):
                                         traces.append("".join(tra))
                                     products["traces"] = ", ".join(traces)
 
-                                # change nutrient_levels if not exist:
-                                nutrient_levels = {}
-                                if "nutrient_levels" in products:
-                                    if "fat" in products["nutrient_levels"]:
-                                        nutrient_levels["fat"] = products[
-                                            "nutrient_levels"
-                                        ]["fat"]
-                                    else:
-                                        nutrient_levels["fat"] = "Non applicable"
-
-                                    if "salt" in products["nutrient_levels"]:
-                                        nutrient_levels["salt"] = products[
-                                            "nutrient_levels"
-                                        ]["salt"]
-                                    else:
-                                        nutrient_levels["salt"] = "Non applicable"
-
-                                    if "saturated-fat" in products["nutrient_levels"]:
-                                        nutrient_levels["saturated-fat"] = products[
-                                            "nutrient_levels"
-                                        ]["saturated-fat"]
-                                    else:
-                                        nutrient_levels[
-                                            "saturated-fat"
-                                        ] = "Non applicable"
-
-                                    if "sugars" in products["nutrient_levels"]:
-                                        nutrient_levels["sugars"] = products[
-                                            "nutrient_levels"
-                                        ]["sugars"]
-                                    else:
-                                        nutrient_levels["sugars"] = "Non applicable"
-
-                                else:
-                                    nutrient_levels = {
-                                        "fat": "Non applicable",
-                                        "salt": "Non applicable",
-                                        "saturated-fat": "Non applicable",
-                                        "sugars": "Non applicable",
-                                    }
-
                                 # change nutriments if not exist:
                                 nutriments = {}
                                 if "nutriments" in products:
@@ -163,7 +122,7 @@ class Command(BaseCommand):
                                             "saturated-fat_100g"
                                         ] = "Non applicable"
 
-                                    if "sugars_100g" in products["nutrient_levels"]:
+                                    if "sugars_100g" in products["nutriments"]:
                                         nutriments["sugars_100g"] = products[
                                             "nutriments"
                                         ]["sugars_100g"]
@@ -189,12 +148,6 @@ class Command(BaseCommand):
                                     image_front_small_url=products[
                                         "image_front_small_url"
                                     ],
-                                    fat_levels=nutrient_levels["fat"],
-                                    salt_levels=nutrient_levels["salt"],
-                                    saturated_fat_levels=nutrient_levels[
-                                        "saturated-fat"
-                                    ],
-                                    sugars_levels=nutrient_levels["sugars"],
                                     fat_100g=nutriments["fat_100g"],
                                     salt_100g=nutriments["salt_100g"],
                                     saturated_fat_100g=nutriments["saturated-fat_100g"],
