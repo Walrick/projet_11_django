@@ -36,7 +36,9 @@
 
         <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
-            {{ form }}
+            <table>
+              {{ form }}
+            </table>
 
         <div class="row justify-content-center">
 
