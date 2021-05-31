@@ -11,7 +11,7 @@ ALLOWED_HOSTS = ["pur-beurre-1.herokuapp.com"]
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {}
-DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+DATABASES['default'] = dj_database_url.config(os.environ.get("DATABASES_URL"))
 
 # Static files settings
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
