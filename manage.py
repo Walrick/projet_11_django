@@ -7,7 +7,8 @@ import sys
 def main():
     """Run administrative tasks."""
 
-    env_setting()
+    # disable if production
+    # env_setting()
 
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pur_beurre.settings.production')
     try:
