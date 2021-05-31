@@ -1,0 +1,74 @@
+# Python
+**/__pycache__/
+*.py[cod]
+*$py.class
+.mypy_cache/
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+public/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage*
+coverage/
+.cache/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+pytest.log
+
+# Tests actions
+*.action
+
+
+# celery beat schedule file
+celerybeat-schedule
+
+# Environments
+.aws
+.env
+.venv
+env/
+venv/
+ENV/
+
+mail.html
+docker-compose.yml
+!installer/src/docker-compose.yml
+docker-compose.override.yml
+
+# Secrets
+*.pem
+*.key
+*.crt
+
+
+# Onprem installer
+.config
+.config.bak
+.config.tls
+.env
+.cfg/
+.instance_id
+prm-onprem.zip
+geckodriver.log
+*.tar.xz
+images/
+.cache_ggshield
