@@ -8,16 +8,24 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('food', '0002_auto_20210511_1931'),
+        ("food", "0002_auto_20210511_1931"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Substitut',
+            name="Substitut",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('product', models.ManyToManyField(to='food.Products')),
-                ('user', models.ManyToManyField(to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("product", models.ManyToManyField(to="food.Products")),
+                ("user", models.ManyToManyField(to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]
