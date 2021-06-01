@@ -106,7 +106,7 @@ class ApiOpenFoodFact:
                 "countries": "France",
                 "json": 1,
                 "page": page,
-                "page_size": 250,
+                "page_size": 100,
             }
         )
 
