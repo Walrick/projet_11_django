@@ -5,11 +5,9 @@ from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
-from food.models import Products, Category, Customer
+from food.models import Products, Customer
 
 
 def index(request):

@@ -8,9 +8,10 @@ def main():
     """Run administrative tasks."""
 
     # disable if production
-    # env_setting()
+    env_setting()
 
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pur_beurre.settings.production')
+    #os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pur_beurre.settings.production')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pur_beurre.settings.development')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

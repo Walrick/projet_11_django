@@ -9,14 +9,16 @@ import food.openfoodfact_api as api_openfoodfact
 
 
 class Command(BaseCommand):
-    help = "manage the database openfoodfact." \
-           "--category up or update for update database category," \
-           "--category del for delete category database," \
-           "--category get + id for test the category," \
-           "--product up or update for update database product," \
-           "--product test for print first product," \
-           "--product del for delete product database," \
-           "--product get + id for test the product"
+    help = (
+        "manage the database openfoodfact."
+        "--category up or update for update database category,"
+        "--category del for delete category database,"
+        "--category get + id for test the category,"
+        "--product up or update for update database product,"
+        "--product test for print first product,"
+        "--product del for delete product database,"
+        "--product get + id for test the product"
+    )
 
     def add_arguments(self, parser):
 
