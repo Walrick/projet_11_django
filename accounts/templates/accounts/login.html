@@ -25,6 +25,7 @@
 
         {% if user_ok %}
             <p>Authentification réussi</p>
+            <meta http-equiv="refresh" content="3; URL={% url 'index' %}">
         {% endif %}
 
         {% if join_user %}
