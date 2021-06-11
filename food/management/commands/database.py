@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: utf8 -*-
 
-from django.core.management.base import BaseCommand, CommandError
-from food.models import Category, Products
+from django.core.management.base import BaseCommand
+from food.models import Category, Product
 
 
 import food.openfoodfact_api as api_openfoodfact
@@ -74,7 +74,7 @@ class Command(BaseCommand):
 
                             # check if products exist
                             try:
-                                item = Products.objects.get(
+                                item = Product.objects.get(
                                     id_openfoodfact=products["id"]
                                 )
                                 item.category.add(c)
@@ -146,7 +146,7 @@ class Command(BaseCommand):
                                         "sugars_100g": "Non applicable",
                                     }
 
-                                p = Products(
+                                p = Product(
                                     name=products["product_name"],
                                     nutrition_grade_fr=products["nutrition_grade_fr"],
                                     traces=products["traces"],
@@ -177,14 +177,14 @@ class Command(BaseCommand):
                     print(key, " : ", response["products"][0][key])
 
             if options["product"] == "del":
-                Products.objects.all().delete()
+                Product.objects.all().delete()
                 print("Tous les produits sont supprimés")
 
             if "get" in options["product"]:
                 list_products = options["product"].split(":")
                 id = list_products[1]
                 try:
-                    item = Products.objects.get(pk=id)
+                    item = Product.objects.get(pk=id)
                 except:
                     item = None
                 if item is not None:

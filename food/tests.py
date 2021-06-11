@@ -2,12 +2,12 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from accounts.models import create_user
 
-from food.models import Products
+from food.models import Product
 
 
 class TestFood(TestCase):
     def setUp(self):
-        self.product_1 = Products(
+        self.product_1 = Product(
             name="pain de mie",
             nutrition_grade_fr="a",
             traces="",
@@ -23,7 +23,7 @@ class TestFood(TestCase):
             sugars_100g="",
         )
         self.product_1.save()
-        self.product_2 = Products(
+        self.product_2 = Product(
             name="pain",
             nutrition_grade_fr="b",
             traces="",

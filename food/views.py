@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
-from food.models import Products, Customer
+from food.models import Product
 
 
 def index(request):
@@ -26,7 +26,7 @@ def search(request):
 
     s = request.GET.get("search", None)
     try:
-        result = Products.objects.filter(name__icontains=s)
+        result = Product.objects.filter(name__icontains=s)
     except:
         result = None
     if len(result) == 0:
@@ -41,7 +41,7 @@ def product(request, id):
     template = loader.get_template("food/product.html")
 
     try:
-        result = Products.objects.get(id=id)
+        result = Product.objects.get(id=id)
     except:
         result = None
 
@@ -54,7 +54,7 @@ def substitute(request, id):
     list_nutri = {"a": 1, "b": 2, "c": 3, "d": 4, "e": 5, "Non applicable": 6}
     data = {}
     try:
-        product = Products.objects.get(id=id)
+        product = Product.objects.get(id=id)
     except:
         product = None
     data["product"] = product
@@ -63,7 +63,7 @@ def substitute(request, id):
     list_product = []
     for cat in list_cat:
         try:
-            list_p = Products.objects.filter(category__products__id=cat.pk)
+            list_p = Product.objects.filter(category__product__id=cat.pk)
             for p in list_p:
                 num_prod = list_nutri[p.nutrition_grade_fr]
                 if num_prod <= num_nutri_prod:
@@ -96,28 +96,22 @@ def my_product(request, id):
     if id == "0":
         p = None
     else:
-        p = Products.objects.get(id=id)
+        p = Product.objects.get(id=id)
 
-    # Load user or create
+    # Load user
     current_user = request.user
-    try:
-        customer = Customer.objects.get(user_id=current_user.id)
-    except:
-        customer = Customer(user_id=current_user.id)
-        customer.save()
 
     if p is not None:
         try:
-            s = customer.substitut.get(id=id)
+            s = Product.users.get(id=current_user.id)
             data["product"] = s
             data["product_found"] = True
         except:
-            customer.substitut.add(p)
+            p.users.add(current_user)
             data["product"] = p
             data["product_new"] = True
 
-    result = customer.substitut.all()
-
+    result = Product.objects.filter(users__id=current_user.id)
     data["result"] = result
 
     return HttpResponse(template.render(data, request=request))
