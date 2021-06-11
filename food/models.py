@@ -9,7 +9,7 @@ class Category(models.Model):
     name = models.CharField(max_length=100)
     id = models.BigAutoField(primary_key=True)
 
-
+# TODO Product
 class Products(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=200)
@@ -26,6 +26,7 @@ class Products(models.Model):
     saturated_fat_100g = models.CharField(max_length=20)
     sugars_100g = models.CharField(max_length=20)
     category = models.ManyToManyField(Category)
+  #TODO  users = models.ManyToManyField(User)
 
 
 class Customer(models.Model):

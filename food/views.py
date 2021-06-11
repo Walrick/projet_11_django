@@ -12,7 +12,6 @@ from food.models import Products, Customer
 
 def index(request):
     template = loader.get_template("food/index.html")
-
     return HttpResponse(template.render(request=request))
 
 
@@ -25,11 +24,12 @@ def search(request):
     template = loader.get_template("food/search.html")
     data = {}
 
-    select = request.GET.get("save_id", None)
     s = request.GET.get("search", None)
     try:
         result = Products.objects.filter(name__icontains=s)
     except:
+        result = None
+    if len(result) == 0:
         result = None
 
     data["result"] = result
@@ -117,6 +117,7 @@ def my_product(request, id):
             data["product_new"] = True
 
     result = customer.substitut.all()
+
     data["result"] = result
 
     return HttpResponse(template.render(data, request=request))

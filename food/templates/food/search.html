@@ -17,6 +17,9 @@
 </header>
 <section class="page-section">
     <div class="container">
+         {%  if result == None %}
+             <p class="text-center">Aucun produit ne correspond à votre recherche</p>
+         {% endif %}
          <div class="row">
              {% for r in result %}
              <div class="col-lg-4 col-md-12 text-center">
