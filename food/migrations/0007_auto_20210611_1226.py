@@ -2,31 +2,6 @@
 
 from django.conf import settings
 from django.db import migrations, models
-from food.models import Products, Product
-
-
-def custom_migration(apps, schema_editor):
-    products = Products.objects.all()
-    for item in products:
-        p = Product(
-            name=item.name,
-            nutrition_grade_fr=item.nutrition_grade_fr,
-            traces=item.traces,
-            allergens=item.allergens,
-            url=item.url,
-            id_openfoodfact=item.id_openfoodfact,
-            image_front_url=item.image_front_url,
-            image_front_small_url=item.image_front_small_url,
-            fat_100g=item.fat_100g,
-            salt_100g=item.salt_100g,
-            saturated_fat_100g=item.saturated_fat_100g,
-            sugars_100g=item.sugars_100g,
-            ingredients_text=item.ingredients_text,
-        )
-        p.save()
-        cats = item.category.all()
-        for item_cat in cats:
-            p.category.add(item_cat)
 
 
 class Migration(migrations.Migration):
@@ -58,9 +33,6 @@ class Migration(migrations.Migration):
                 ('users', models.ManyToManyField(to=settings.AUTH_USER_MODEL)),
             ],
         ),
-
-        # run function for transferring data
-        migrations.RunPython(custom_migration),
 
 
         migrations.DeleteModel(
