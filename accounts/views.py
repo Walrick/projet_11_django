@@ -69,6 +69,7 @@ def join(request):
         if response["response"] == "ok":
             data["join_user"] = True
             template = loader.get_template("accounts/login.html")
+            data["form"] = LoginForm()
             return HttpResponse(template.render(data, request=request))
 
     return HttpResponse(template.render(data, request=request))
