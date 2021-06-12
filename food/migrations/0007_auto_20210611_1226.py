@@ -8,35 +8,32 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('food', '0006_auto_20210528_1645'),
+        ("food", "0006_auto_20210528_1645"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.BigAutoField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=200)),
-                ('nutrition_grade_fr', models.CharField(max_length=18)),
-                ('traces', models.CharField(max_length=200)),
-                ('allergens', models.CharField(max_length=200)),
-                ('url', models.CharField(max_length=200)),
-                ('id_openfoodfact', models.BigIntegerField()),
-                ('image_front_url', models.CharField(max_length=200)),
-                ('image_front_small_url', models.CharField(max_length=200)),
-                ('ingredients_text', models.TextField()),
-                ('fat_100g', models.CharField(max_length=20)),
-                ('salt_100g', models.CharField(max_length=20)),
-                ('saturated_fat_100g', models.CharField(max_length=20)),
-                ('sugars_100g', models.CharField(max_length=20)),
-                ('category', models.ManyToManyField(to='food.Category')),
-                ('users', models.ManyToManyField(to=settings.AUTH_USER_MODEL)),
+                ("id", models.BigAutoField(primary_key=True, serialize=False)),
+                ("name", models.CharField(max_length=200)),
+                ("nutrition_grade_fr", models.CharField(max_length=18)),
+                ("traces", models.CharField(max_length=200)),
+                ("allergens", models.CharField(max_length=200)),
+                ("url", models.CharField(max_length=200)),
+                ("id_openfoodfact", models.BigIntegerField()),
+                ("image_front_url", models.CharField(max_length=200)),
+                ("image_front_small_url", models.CharField(max_length=200)),
+                ("ingredients_text", models.TextField()),
+                ("fat_100g", models.CharField(max_length=20)),
+                ("salt_100g", models.CharField(max_length=20)),
+                ("saturated_fat_100g", models.CharField(max_length=20)),
+                ("sugars_100g", models.CharField(max_length=20)),
+                ("category", models.ManyToManyField(to="food.Category")),
+                ("users", models.ManyToManyField(to=settings.AUTH_USER_MODEL)),
             ],
         ),
-
-
         migrations.DeleteModel(
-            name='Customer',
+            name="Customer",
         ),
-
     ]
