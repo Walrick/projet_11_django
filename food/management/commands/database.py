@@ -40,7 +40,7 @@ class Command(BaseCommand):
 
                 for category in response["tags"]:
                     if category["products"] > 10:
-                        c = Category(category["name"])
+                        c = Category(name=category["name"])
                         c.save()
                 print("update terminée")
 
@@ -59,7 +59,6 @@ class Command(BaseCommand):
             if options["product"] == "up" or options["product"] == "update":
                 api = api_openfoodfact.ApiOpenFoodFact()
                 category_list = Category.objects.all()
-
                 for c in category_list:
 
                     response = api.product_requests_by_category(c.name, 1)

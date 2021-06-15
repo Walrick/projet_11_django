@@ -24,8 +24,7 @@ def my_account(request):
 
 
 def login(request):
-    data = {}
-    data["form"] = LoginForm()
+    data = {"form": LoginForm()}
     template = loader.get_template("accounts/login.html")
     if request.method == "POST":
         password = request.POST.get("password")

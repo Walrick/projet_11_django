@@ -48,3 +48,15 @@ class TestAccounts(TestCase):
         c.post("/accounts/login/", {"username": "user_test", "password": "pass_test"})
         response = c.get("/accounts/my_account/", follow=True)
         self.assertEqual(response.redirect_chain, [])
+
+    def test_join(self):
+        c = Client()
+        response = c.post(
+            "/accounts/join/",
+            {
+                "username": "user_test_2",
+                "password": "pass_test_2",
+                "email": "email_test_2@test.fr",
+            },
+        )
+        self.assertEqual(response.context["join_user"], True)
