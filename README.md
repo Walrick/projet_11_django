@@ -18,6 +18,10 @@ Vous pouvez enregistrer le produit de substitution (login nécessaire)
 
 ## Utilisation en local
 
+Utiliser python 3.9 et 
+
+> pip install -r requirements.txt
+
 Créer un fichier .env avec la clé django
 
 > SECRET_KEY = ""
@@ -42,7 +46,6 @@ Changer aussi :
 en 
 > os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pur_beurre.settings.development')
 
-Utiliser python 3.9 et pip install -r requirements.txt
 
 ## Api utilisée:
 
@@ -50,7 +53,7 @@ Cette application utilise l'api Openfoodfacts
 
 ## Commande
 
-Il y a plusieurs commande pour mettre à jour la base de données.
+Il y a plusieurs commandes pour mettre à jour la base de données.
 - Sous window par exemple
 > py -m manage database --help
 
