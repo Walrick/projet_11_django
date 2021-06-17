@@ -13,6 +13,13 @@ import food.management.commands.database as database
 from io import StringIO
 from django.core.management import call_command
 
+from selenium import webdriver
+import time
+from selenium.webdriver.chrome.options import Options
+import selenium.webdriver.support.ui as ui
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
+
 
 class TestFood(TestCase):
     def setUp(self):
@@ -212,3 +219,42 @@ class CommandTest(TestCase):
 
         # Test command database --product get:1
         call_command("database", "--product", "get:1", stdout=out)
+
+
+class TestFunctional(TestCase):
+    def setUp(self):
+        options = Options()
+        options.add_argument("start-maximized")
+
+        # Create browser
+        self.browser = webdriver.Chrome(
+            executable_path="driver/chromedriver", options=options
+        )
+        time.sleep(1)
+        self.browser.get("http://127.0.0.1:8000")
+
+    def get_id(self, selector):
+        return self.browser.find_element_by_id(selector)
+
+    def test_title(self):
+
+        self.assertEqual(self.browser.title, "Pur Beurre")
+
+    def test_legal(self):
+
+        link = self.get_id("link_mention_legal")
+        assert link is not None
+
+        ActionChains(self.browser).click(link).perform()
+        time.sleep(1)
+        assert self.browser.current_url == "http://127.0.0.1:8000/food/legal"
+
+    def test_search_bar(self):
+
+        search = self.get_id("search_bar")
+        time.sleep(1)
+        search.send_keys("pain" + Keys.RETURN)
+
+        assert (
+            self.browser.current_url == "http://127.0.0.1:8000/food/search?search=pain"
+        )
