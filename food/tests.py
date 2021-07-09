@@ -8,7 +8,6 @@ from io import BytesIO
 
 from food.models import Product, Category
 import food.openfoodfact_api as api
-import food.management.commands.database as database
 
 from io import StringIO
 from django.core.management import call_command
@@ -16,7 +15,6 @@ from django.core.management import call_command
 from selenium import webdriver
 import time
 from selenium.webdriver.chrome.options import Options
-import selenium.webdriver.support.ui as ui
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 
@@ -104,7 +102,8 @@ class TestFood(TestCase):
         self.assertEqual(response.context["product"].name, "pain de mie")
 
         c_2 = Client()
-        c_2.login(username="user_test_2", password="pass_test_2")
+        # error for exercise
+    #    c_2.login(username="user_test_2", password="pass_test_2")
         response = c_2.get(
             f"/food/my_product/{self.product_2.pk}", HTTP_ACCEPT="application/json"
         )

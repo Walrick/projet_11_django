@@ -7,11 +7,18 @@ import sys
 def main():
     """Run administrative tasks."""
 
-    # disable if production
-    # env_setting()
+    try:
+        env_setting()
+    except:
+        print(".env file not exist")
 
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pur_beurre.settings.production')
-    # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pur_beurre.settings.development')
+    state = os.environ.get("STATE", "PRODUCTION")
+    if state == "LOCAL":
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pur_beurre.settings.development')
+
+    if state == "PRODUCTION":
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pur_beurre.settings.production')
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
