@@ -102,8 +102,7 @@ class TestFood(TestCase):
         self.assertEqual(response.context["product"].name, "pain de mie")
 
         c_2 = Client()
-        # error for exercise
-    #    c_2.login(username="user_test_2", password="pass_test_2")
+        c_2.login(username="user_test_2", password="pass_test_2")
         response = c_2.get(
             f"/food/my_product/{self.product_2.pk}", HTTP_ACCEPT="application/json"
         )
