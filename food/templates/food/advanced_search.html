@@ -19,16 +19,17 @@
 
 <section class="page-section">
 
-    <div class="text-center">
-        <p>Catégorie</p>
-        <form method="post" action="{% url 'advanced_search' id=product.id%}">
+    <div class="row justify-content-center">
+        <form method="post" action="{% url 'advanced_search' id=product.id %}">
         {% csrf_token %}
             <table>
-              {{ form }}
+                     {{ form_cat }}
+                     {{ form_prod }}
             </table>
             <input type="submit" value="valide">
         </form>
     </div>
+
     <div class="container">
          <div class="row">
              {% for r in result %}

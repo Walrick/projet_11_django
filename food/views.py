@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from food.models import Product, Category
-from food.form import CategoryForm
+from food.form import CategoryForm, ProductForm
 
 
 def index(request):
@@ -140,29 +140,52 @@ def advanced_search(request, id):
         item = (cat.name, cat.name)
         form_cat.append(item)
 
-    form = CategoryForm(form_cat)
+    form_cat = CategoryForm(form_cat)
+    form_prod = ProductForm()
 
-    data["form"] = form
+    data["form_cat"] = form_cat
+    data["form_prod"] = form_prod
+
+    word_key = None
 
     if request.method == 'POST':
+
         cat_post = (request.POST.getlist("categories"))
-        list_cat = []
-        for cat in cat_post:
-            item = Category.objects.get(name=cat)
-            list_cat.append(item)
+        if len(cat_post) != 0:
+            list_cat = []
+            for cat in cat_post:
+                item = Category.objects.get(name=cat)
+                list_cat.append(item)
+
+        word_key = request.POST.get("word_key", None)
+
 
     # Load response
     list_product = []
     for cat in list_cat:
         try:
-            list_p = cat.product_set.all()
-            print(list_p)
-            for p in list_p:
-                print("produit :", p.name, p.pk, p.id)
-                num_prod = list_nutri[p.nutrition_grade_fr]
-                # response filtre
-                if num_prod <= num_nutri_prod and p not in list_product:
-                    list_product.append(p)
+            if word_key is not None:
+                result_prod = None
+                try:
+                    result_prod = cat.product_set.filter(name__icontains=word_key)
+                except Product.DoesNotExist:
+                    result_prod = None
+                if len(result_prod) == 0:
+                    result_prod = None
+                else:
+
+                    for p in result_prod:
+                        num_prod = list_nutri[p.nutrition_grade_fr]
+                        # response filtre
+                        if num_prod <= num_nutri_prod and p not in list_product:
+                            list_product.append(p)
+            else:
+                list_p = cat.product_set.all()
+                for p in list_p:
+                    num_prod = list_nutri[p.nutrition_grade_fr]
+                    # response filtre
+                    if num_prod <= num_nutri_prod and p not in list_product:
+                        list_product.append(p)
 
         except Product.DoesNotExist:
             p = None
