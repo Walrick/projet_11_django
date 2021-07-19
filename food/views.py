@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
-from food.models import Product
+from food.models import Product, Category
 from food.form import CategoryForm
 
 
@@ -123,7 +123,7 @@ def advanced_search(request, id):
     data = {}
     list_nutri = {"a": 1, "b": 2, "c": 3, "d": 4, "e": 5, "Non applicable": 6}
 
-    # Load product
+    # Load product search
     try:
         product = Product.objects.get(id=id)
     except Product.DoesNotExist:
@@ -131,7 +131,7 @@ def advanced_search(request, id):
     data["product"] = product
     num_nutri_prod = list_nutri[product.nutrition_grade_fr]
 
-    # Load list catégory
+    # Load list category
     list_cat = product.category.all()
 
     # Init form_cat for the form
@@ -145,18 +145,24 @@ def advanced_search(request, id):
     data["form"] = form
 
     if request.method == 'POST':
-        list = (request.POST.getlist("categories"))
-        print(list)
-        list_cat = list
+        cat_post = (request.POST.getlist("categories"))
+        list_cat = []
+        for cat in cat_post:
+            item = Category.objects.get(name=cat)
+            list_cat.append(item)
 
+    # Load response
     list_product = []
     for cat in list_cat:
         try:
-            list_p = Product.objects.filter(category__product__id=cat.pk)
+            list_p = cat.product_set.all()
+            print(list_p)
             for p in list_p:
+                print("produit :", p.name, p.pk, p.id)
                 num_prod = list_nutri[p.nutrition_grade_fr]
                 if num_prod <= num_nutri_prod:
                     list_product.append(p)
+
         except Product.DoesNotExist:
             p = None
 
