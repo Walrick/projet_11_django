@@ -160,7 +160,8 @@ def advanced_search(request, id):
             for p in list_p:
                 print("produit :", p.name, p.pk, p.id)
                 num_prod = list_nutri[p.nutrition_grade_fr]
-                if num_prod <= num_nutri_prod:
+                # response filtre
+                if num_prod <= num_nutri_prod and p not in list_product:
                     list_product.append(p)
 
         except Product.DoesNotExist:
