@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from food.models import Product
+from food.form import CategoryForm
 
 
 def index(request):
@@ -27,7 +28,7 @@ def search(request):
     s = request.GET.get("search", None)
     try:
         result = Product.objects.filter(name__icontains=s)
-    except:
+    except Product.DoesNotExist:
         result = None
     if len(result) == 0:
         result = None
@@ -42,7 +43,7 @@ def product(request, id):
 
     try:
         result = Product.objects.get(id=id)
-    except:
+    except Product.DoesNotExist:
         result = None
 
     dic = {"product": result}
@@ -55,7 +56,7 @@ def substitute(request, id):
     data = {}
     try:
         product = Product.objects.get(id=id)
-    except:
+    except Product.DoesNotExist:
         product = None
     data["product"] = product
     num_nutri_prod = list_nutri[product.nutrition_grade_fr]
@@ -68,7 +69,7 @@ def substitute(request, id):
                 num_prod = list_nutri[p.nutrition_grade_fr]
                 if num_prod <= num_nutri_prod:
                     list_product.append(p)
-        except:
+        except Product.DoesNotExist:
             p = None
 
     paginator = Paginator(list_product, 21)
@@ -106,12 +107,71 @@ def my_product(request, id):
             s = Product.users.get(id=current_user.id)
             data["product"] = s
             data["product_found"] = True
-        except:
+        except Product.DoesNotExist:
             p.users.add(current_user)
             data["product"] = p
             data["product_new"] = True
 
     result = Product.objects.filter(users__id=current_user.id)
+    data["result"] = result
+
+    return HttpResponse(template.render(data, request=request))
+
+
+def advanced_search(request, id):
+    template = loader.get_template("food/advanced_search.html")
+    data = {}
+    list_nutri = {"a": 1, "b": 2, "c": 3, "d": 4, "e": 5, "Non applicable": 6}
+
+    # Load product
+    try:
+        product = Product.objects.get(id=id)
+    except Product.DoesNotExist:
+        product = None
+    data["product"] = product
+    num_nutri_prod = list_nutri[product.nutrition_grade_fr]
+
+    # Load list catégory
+    list_cat = product.category.all()
+
+    # Init form_cat for the form
+    form_cat = []
+    for cat in list_cat:
+        item = (cat.name, cat.name)
+        form_cat.append(item)
+
+    form = CategoryForm(form_cat)
+
+    data["form"] = form
+
+    if request.method == 'POST':
+        list = (request.POST.getlist("categories"))
+        print(list)
+        list_cat = list
+
+    list_product = []
+    for cat in list_cat:
+        try:
+            list_p = Product.objects.filter(category__product__id=cat.pk)
+            for p in list_p:
+                num_prod = list_nutri[p.nutrition_grade_fr]
+                if num_prod <= num_nutri_prod:
+                    list_product.append(p)
+        except Product.DoesNotExist:
+            p = None
+
+    # paginator
+    paginator = Paginator(list_product, 21)
+    page = request.GET.get("page")
+    try:
+        result = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        result = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        result = paginator.page(paginator.num_pages)
+
     data["result"] = result
 
     return HttpResponse(template.render(data, request=request))
