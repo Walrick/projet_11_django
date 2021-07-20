@@ -104,8 +104,8 @@ def my_product(request, id):
 
     if p is not None:
         try:
-            s = Product.users.get(id=current_user.id)
-            data["product"] = s
+            a = current_user.product_set.get(id=current_user.id)
+            data["product"] = a
             data["product_found"] = True
         except Product.DoesNotExist:
             p.users.add(current_user)
@@ -159,7 +159,6 @@ def advanced_search(request, id):
 
         word_key = request.POST.get("word_key", None)
 
-
     # Load response
     list_product = []
     for cat in list_cat:
@@ -205,3 +204,4 @@ def advanced_search(request, id):
     data["result"] = result
 
     return HttpResponse(template.render(data, request=request))
+

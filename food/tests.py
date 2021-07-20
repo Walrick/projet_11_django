@@ -17,6 +17,7 @@ import time
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
 
 
 class TestFood(TestCase):
@@ -247,12 +248,45 @@ class TestFunctional(TestCase):
         time.sleep(1)
         assert self.browser.current_url == "http://127.0.0.1:8000/food/legal"
 
-    def test_search_bar(self):
+    def test_search_fonction(self):
 
+        # test search bar
         search = self.get_id("search_bar")
         time.sleep(1)
         search.send_keys("pain" + Keys.RETURN)
+        time.sleep(1)
 
         assert (
             self.browser.current_url == "http://127.0.0.1:8000/food/search?search=pain"
         )
+
+        # test substitute
+        link = self.get_id("link substitute")
+        ActionChains(self.browser).click(link).perform()
+        time.sleep(1)
+        assert self.browser.current_url == "http://127.0.0.1:8000/food/substitute/1"
+
+        # test advance search page
+        link = self.get_id("link advanced_search")
+        ActionChains(self.browser).click(link).perform()
+        time.sleep(1)
+        assert self.browser.current_url == "http://127.0.0.1:8000/food/advanced_search/1"
+
+        # test advance search key word
+        search = self.get_id("id_word_key")
+        time.sleep(1)
+        search.send_keys("pain" + Keys.RETURN)
+        time.sleep(1)
+        assert self.browser.current_url == "http://127.0.0.1:8000/food/advanced_search/1"
+
+        # test advance search category
+        search = self.get_id("id_categories")
+        select = Select(search)
+        time.sleep(1)
+        select.select_by_visible_text('Pains')
+        time.sleep(1)
+        search.send_keys(Keys.RETURN)
+        time.sleep(1)
+        assert self.browser.current_url == "http://127.0.0.1:8000/food/advanced_search/1"
+
+
