@@ -9,11 +9,9 @@ class CategoryForm(forms.Form):
         super().__init__(*args, **kwargs)
 
         self.fields["categories"] = forms.MultipleChoiceField(
-            required=False,
-            widget=forms.SelectMultiple,
-            choices=category
+            required=False, widget=forms.SelectMultiple, choices=category
         )
 
 
 class ProductForm(forms.Form):
-    word_key = forms.CharField(label='Mots clés', max_length=100, required=False)
+    word_key = forms.CharField(label="Mots clés", max_length=100, required=False)

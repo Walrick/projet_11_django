@@ -270,23 +270,27 @@ class TestFunctional(TestCase):
         link = self.get_id("link advanced_search")
         ActionChains(self.browser).click(link).perform()
         time.sleep(1)
-        assert self.browser.current_url == "http://127.0.0.1:8000/food/advanced_search/1"
+        assert (
+            self.browser.current_url == "http://127.0.0.1:8000/food/advanced_search/1"
+        )
 
         # test advance search key word
         search = self.get_id("id_word_key")
         time.sleep(1)
         search.send_keys("pain" + Keys.RETURN)
         time.sleep(1)
-        assert self.browser.current_url == "http://127.0.0.1:8000/food/advanced_search/1"
+        assert (
+            self.browser.current_url == "http://127.0.0.1:8000/food/advanced_search/1"
+        )
 
         # test advance search category
         search = self.get_id("id_categories")
         select = Select(search)
         time.sleep(1)
-        select.select_by_visible_text('Pains')
+        select.select_by_visible_text("Pains")
         time.sleep(1)
         search.send_keys(Keys.RETURN)
         time.sleep(1)
-        assert self.browser.current_url == "http://127.0.0.1:8000/food/advanced_search/1"
-
-
+        assert (
+            self.browser.current_url == "http://127.0.0.1:8000/food/advanced_search/1"
+        )

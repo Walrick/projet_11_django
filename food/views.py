@@ -148,9 +148,9 @@ def advanced_search(request, id):
 
     word_key = None
 
-    if request.method == 'POST':
+    if request.method == "POST":
 
-        cat_post = (request.POST.getlist("categories"))
+        cat_post = request.POST.getlist("categories")
         if len(cat_post) != 0:
             list_cat = []
             for cat in cat_post:
@@ -204,4 +204,3 @@ def advanced_search(request, id):
     data["result"] = result
 
     return HttpResponse(template.render(data, request=request))
-
