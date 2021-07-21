@@ -104,7 +104,7 @@ def my_product(request, id):
 
     if p is not None:
         try:
-            a = current_user.product_set.get(id=current_user.id)
+            a = Product.objects.filter(id=current_user.id)
             data["product"] = a
             data["product_found"] = True
         except Product.DoesNotExist:
