@@ -1,20 +1,8 @@
-# Projet 8 - Créez une plateforme pour amateurs de Nutella
+# Projet 11 - Améliorez un projet existant en Python
 
 --------------------------------------------------
 
-## Utilisation 
-
-Aller sur le lien : https://pur-beurre.jeremycombes.fr
-
-Dans la barre de recherche, entre un produit à chercher et valide.
-> pain
-
-L'appli propose des aliments se rapprochant du produit contenue dans la base de données.
-> pain de mie, pain...
-
-Cliquer sur un sélectionner sous un produit pour que l'appli propose un produit de substitution de la même catégorie et d'un meilleur nutriscore.
-
-Vous pouvez enregistrer le produit de substitution (login nécessaire)
+Le projet a amélioré choisi est le projet 8 de la formation Python d'Openclassrooms, la fonction recherché a était amélioré, des filtres par catégorie et mot clé on était rajouté.
 
 ## Utilisation en local
 
@@ -33,19 +21,21 @@ Completer le même fichier avec les identifiants de connexion à postgreSQL (le 
 > NAME = ""
 > PORT = ""
 
-Dans le fichier manager.py, changer :
+Ajouter aussi la variable STATE pour signifier a django que le lancement est bien en local (a changer en PRODUCTION pour la production)
 
-> ####### disable if production
-> ####### env_setting()
-en
-> ####### disable if production
-> ###### env_setting()
-pour appeler la fonction env_setting.
-Changer aussi :
-> os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pur_beurre.settings.production')
-en 
-> os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pur_beurre.settings.development')
+> STATE = LOCAL
 
+## Utilisation 
+
+Dans la barre de recherche, entre un produit à chercher et valide.
+> pain
+
+L'appli propose des aliments se rapprochant du produit contenue dans la base de données.
+> pain de mie, pain...
+
+Cliquer sur un sélectionner sous un produit pour que l'appli propose un produit de substitution de la même catégorie et d'un meilleur nutriscore.
+
+Vous pouvez enregistrer le produit de substitution (login nécessaire)
 
 ## Api utilisée:
 
