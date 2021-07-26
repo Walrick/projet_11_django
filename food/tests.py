@@ -158,6 +158,13 @@ class TestFood(TestCase):
         product = self.api.product_requests_by_category("fruit", 1)
         self.assertEqual(product["tags"][0]["name"], "pomme")
 
+    def test_advance_search(self):
+        c = Client()
+        response = c.get(
+            f"/food/advanced_search/{self.product_1.pk}", HTTP_ACCEPT="application/json"
+        )
+        self.assertEqual(response.context["product"].name, "pain de mie")
+
 
 class CommandTest(TestCase):
     @patch("urllib.request.urlopen")
