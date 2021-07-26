@@ -7,17 +7,21 @@ import sys
 def main():
     """Run administrative tasks."""
 
-    try:
-        env_setting()
-    except:
-        print(".env file not exist")
+    # Read .env
+    env_setting()
 
     state = os.environ.get("STATE", "PRODUCTION")
     if state == "LOCAL":
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pur_beurre.settings.development')
+        os.environ.setdefault(
+            'DJANGO_SETTINGS_MODULE',
+            'pur_beurre.settings.development'
+        )
 
     if state == "PRODUCTION":
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pur_beurre.settings.production')
+        os.environ.setdefault(
+            'DJANGO_SETTINGS_MODULE',
+            'pur_beurre.settings.production'
+        )
 
     try:
         from django.core.management import execute_from_command_line
@@ -32,8 +36,11 @@ def main():
 
 def env_setting():
     # open file .env for set setting
-    with open(".env", "r") as file:
-        lines = file.readlines()
+    try:
+        with open(".env", "r") as file:
+            lines = file.readlines()
+    except file.errors:
+        print(".env file not exist")
     for line in lines:
         lg = line.split(" ")
         word_list = []
@@ -48,5 +55,3 @@ def env_setting():
 
 if __name__ == '__main__':
     main()
-
-

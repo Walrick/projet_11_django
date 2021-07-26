@@ -2,8 +2,6 @@
 # -*- coding: utf8 -*-
 
 from django.conf.urls import url
-from django.urls import include, path
-from django.contrib.auth import views as auth_views
 
 from . import views  # import views so we can use them in urls.
 

@@ -17,11 +17,14 @@ class TestAccounts(TestCase):
     def test_login(self):
         c = Client()
         response = c.post(
-            "/accounts/login/", {"username": "user_test", "password": "pass_test"}
+            "/accounts/login/",
+            {"username": "user_test", "password": "pass_test"}
         )
         self.assertEqual(response.context["user_ok"], True)
 
-        user = authenticate(response, username="user_test", password="pass_test")
+        user = authenticate(
+            response, username="user_test", password="pass_test"
+        )
         self.assertEqual(user.email, "email_test@test.fr")
 
     def test_login_failure(self):
@@ -45,7 +48,9 @@ class TestAccounts(TestCase):
             [("/accounts/login/?next=/accounts/my_account/", 302)],
         )
 
-        c.post("/accounts/login/", {"username": "user_test", "password": "pass_test"})
+        c.post("/accounts/login/",
+               {"username": "user_test", "password": "pass_test"}
+               )
         response = c.get("/accounts/my_account/", follow=True)
         self.assertEqual(response.redirect_chain, [])
 

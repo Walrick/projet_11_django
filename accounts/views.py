@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf8 -*-
 
-from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -13,7 +12,6 @@ from django.contrib.auth import login as log
 from django.contrib.auth import logout as logou
 
 from accounts.form import LoginForm, JoinForm
-import accounts.form as form
 import accounts.models as model
 
 

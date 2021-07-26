@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf8 -*-
 
-from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -165,7 +164,9 @@ def advanced_search(request, id):
             if word_key is not None:
                 result_prod = None
                 try:
-                    result_prod = cat.product_set.filter(name__icontains=word_key)
+                    result_prod = cat.product_set.filter(
+                        name__icontains=word_key
+                    )
                 except Product.DoesNotExist:
                     result_prod = None
                 if len(result_prod) == 0:
@@ -175,7 +176,8 @@ def advanced_search(request, id):
                     for p in result_prod:
                         num_prod = list_nutri[p.nutrition_grade_fr]
                         # response filtre
-                        if num_prod <= num_nutri_prod and p not in list_product:
+                        if num_prod <= num_nutri_prod and \
+                                p not in list_product:
                             list_product.append(p)
             else:
                 list_p = cat.product_set.all()

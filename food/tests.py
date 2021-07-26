@@ -3,7 +3,7 @@ from django.urls import reverse
 import json
 
 from accounts.models import create_user
-from mock import MagicMock, patch, Mock
+from mock import patch
 from io import BytesIO
 
 from food.models import Product, Category
@@ -89,7 +89,8 @@ class TestFood(TestCase):
     def test_product(self):
         c = Client()
         response = c.get(
-            f"/food/product/{self.product_1.pk}", HTTP_ACCEPT="application/json"
+            f"/food/product/{self.product_1.pk}",
+            HTTP_ACCEPT="application/json"
         )
         self.assertEqual(response.status_code, 200)
 
@@ -97,7 +98,8 @@ class TestFood(TestCase):
         c = Client()
         c.login(username="user_test", password="pass_test")
         response = c.get(
-            f"/food/my_product/{self.product_1.pk}", HTTP_ACCEPT="application/json"
+            f"/food/my_product/{self.product_1.pk}",
+            HTTP_ACCEPT="application/json"
         )
         self.assertEqual(response.context["product_new"], True)
         self.assertEqual(response.context["product"].name, "pain de mie")
@@ -105,18 +107,23 @@ class TestFood(TestCase):
         c_2 = Client()
         c_2.login(username="user_test_2", password="pass_test_2")
         response = c_2.get(
-            f"/food/my_product/{self.product_2.pk}", HTTP_ACCEPT="application/json"
+            f"/food/my_product/{self.product_2.pk}",
+            HTTP_ACCEPT="application/json"
         )
         self.assertEqual(response.context["product_new"], True)
         self.assertEqual(response.context["product"].name, "pain")
 
-        response = c_2.get(f"/food/my_product/0", HTTP_ACCEPT="application/json")
+        response = c_2.get(
+            "/food/my_product/0",
+            HTTP_ACCEPT="application/json"
+        )
         self.assertEqual(response.context["result"][0].name, "pain")
 
     def test_substitute_page(self):
         c = Client()
         response = c.get(
-            f"/food/substitute/{self.product_2.pk}", HTTP_ACCEPT="application/json"
+            f"/food/substitute/{self.product_2.pk}",
+            HTTP_ACCEPT="application/json"
         )
         self.assertEqual(response.status_code, 200)
 
@@ -161,7 +168,8 @@ class TestFood(TestCase):
     def test_advance_search(self):
         c = Client()
         response = c.get(
-            f"/food/advanced_search/{self.product_1.pk}", HTTP_ACCEPT="application/json"
+            f"/food/advanced_search/{self.product_1.pk}",
+            HTTP_ACCEPT="application/json"
         )
         self.assertEqual(response.context["product"].name, "pain de mie")
 
@@ -243,20 +251,18 @@ class TestFunctional(TestCase):
         return self.browser.find_element_by_id(selector)
 
     def test_title(self):
-
         self.assertEqual(self.browser.title, "Pur Beurre")
 
     def test_legal(self):
-
         link = self.get_id("link_mention_legal")
         assert link is not None
 
         ActionChains(self.browser).click(link).perform()
         time.sleep(1)
-        assert self.browser.current_url == "http://127.0.0.1:8000/food/legal"
+        assert self.browser.current_url == \
+               "http://127.0.0.1:8000/food/legal"
 
     def test_search_fonction(self):
-
         # test search bar
         search = self.get_id("search_bar")
         time.sleep(1)
@@ -264,21 +270,24 @@ class TestFunctional(TestCase):
         time.sleep(1)
 
         assert (
-            self.browser.current_url == "http://127.0.0.1:8000/food/search?search=pain"
+                self.browser.current_url ==
+                "http://127.0.0.1:8000/food/search?search=pain"
         )
 
         # test substitute
         link = self.get_id("link substitute")
         ActionChains(self.browser).click(link).perform()
         time.sleep(1)
-        assert self.browser.current_url == "http://127.0.0.1:8000/food/substitute/1"
+        assert self.browser.current_url == \
+               "http://127.0.0.1:8000/food/substitute/1"
 
         # test advance search page
         link = self.get_id("link advanced_search")
         ActionChains(self.browser).click(link).perform()
         time.sleep(1)
         assert (
-            self.browser.current_url == "http://127.0.0.1:8000/food/advanced_search/1"
+                self.browser.current_url ==
+                "http://127.0.0.1:8000/food/advanced_search/1"
         )
 
         # test advance search key word
@@ -287,7 +296,8 @@ class TestFunctional(TestCase):
         search.send_keys("pain" + Keys.RETURN)
         time.sleep(1)
         assert (
-            self.browser.current_url == "http://127.0.0.1:8000/food/advanced_search/1"
+                self.browser.current_url ==
+                "http://127.0.0.1:8000/food/advanced_search/1"
         )
 
         # test advance search category
@@ -299,5 +309,6 @@ class TestFunctional(TestCase):
         search.send_keys(Keys.RETURN)
         time.sleep(1)
         assert (
-            self.browser.current_url == "http://127.0.0.1:8000/food/advanced_search/1"
+                self.browser.current_url ==
+                "http://127.0.0.1:8000/food/advanced_search/1"
         )

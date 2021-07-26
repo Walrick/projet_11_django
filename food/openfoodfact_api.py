@@ -77,7 +77,8 @@ class ApiOpenFoodFact:
                 "image_front_url" : str,
                 "image_front_small_url" : str,
                 "ingredients_text", str,
-                "nutrient_levels"  :  {'fat': str, 'salt': str, 'saturated-fat': str, 'sugars': str},
+                "nutrient_levels"  :
+                {'fat': str, 'salt': str, 'saturated-fat': str, 'sugars': str},
                 "nutriments" {
                     'fat_100g': float,
                     'salt_100g': float,

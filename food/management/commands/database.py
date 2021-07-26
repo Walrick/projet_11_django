@@ -4,7 +4,6 @@
 from django.core.management.base import BaseCommand
 from food.models import Category, Product
 
-
 import food.openfoodfact_api as api_openfoodfact
 
 
@@ -77,14 +76,15 @@ class Command(BaseCommand):
                                     id_openfoodfact=products["id"]
                                 )
                                 item.category.add(c)
-                            except:
+                            except Product.DoesNotExist:
                                 item = None
 
                             if item is None:
 
                                 # Change "nutrition_grade_fr" if absent
                                 if "nutrition_grade_fr" not in products:
-                                    products["nutrition_grade_fr"] = "Non applicable"
+                                    products["nutrition_grade_fr"] = \
+                                        "Non applicable"
                                 # Change "allergens" type build en:egg in egg
                                 if "allergens" in products:
                                     allergens = []
@@ -93,8 +93,9 @@ class Command(BaseCommand):
                                         allerg = list(allergen)
                                         del allerg[:3]
                                         allergens.append("".join(allerg))
-                                    products["allergens"] = ", ".join(allergens)
-                                # Change "traces" type build en:gluten in gluten
+                                    products["allergens"] = \
+                                        ", ".join(allergens)
+                                # Change "traces" type build en:gluten
                                 if "traces" in products:
                                     traces = []
                                     text = products["traces"].split(",")
@@ -108,59 +109,94 @@ class Command(BaseCommand):
                                 nutriments = {}
                                 if "nutriments" in products:
                                     if "fat_100g" in products["nutriments"]:
-                                        nutriments["fat_100g"] = products["nutriments"][
-                                            "fat_100g"
-                                        ]
+                                        nutriments["fat_100g"] = \
+                                            products["nutriments"][
+                                                "fat_100g"
+                                            ]
                                     else:
-                                        nutriments["fat_100g"] = "Non applicable"
+                                        nutriments["fat_100g"] = \
+                                            "Non applicable"
 
                                     if "salt_100g" in products["nutriments"]:
                                         nutriments["salt_100g"] = products[
                                             "nutriments"
                                         ]["salt_100g"]
                                     else:
-                                        nutriments["salt_100g"] = "Non applicable"
+                                        nutriments["salt_100g"] = \
+                                            "Non applicable"
 
-                                    if "saturated-fat_100g" in products["nutriments"]:
-                                        nutriments["saturated-fat_100g"] = products[
-                                            "nutriments"
-                                        ]["saturated-fat_100g"]
+                                    if "saturated-fat_100g" in \
+                                            products["nutriments"]:
+                                        nutriments["saturated-fat_100g"] = \
+                                            products[
+                                                "nutriments"][
+                                                "saturated-fat_100g"]
                                     else:
                                         nutriments[
                                             "saturated-fat_100g"
                                         ] = "Non applicable"
 
-                                    if "sugars_100g" in products["nutriments"]:
+                                    if "sugars_100g" in \
+                                            products["nutriments"]:
                                         nutriments["sugars_100g"] = products[
                                             "nutriments"
                                         ]["sugars_100g"]
                                     else:
-                                        nutriments["sugars_100g"] = "Non applicable"
+                                        nutriments["sugars_100g"] = \
+                                            "Non applicable"
 
                                 else:
                                     nutriments = {
-                                        "fat_100g": "Non applicable",
-                                        "salt_100g": "Non applicable",
-                                        "saturated-fat_100g": "Non applicable",
-                                        "sugars_100g": "Non applicable",
+                                        "fat_100g":
+                                            "Non applicable",
+                                        "salt_100g":
+                                            "Non applicable",
+                                        "saturated-fat_100g":
+                                            "Non applicable",
+                                        "sugars_100g":
+                                            "Non applicable",
                                     }
 
                                 p = Product(
-                                    name=products["product_name"],
-                                    nutrition_grade_fr=products["nutrition_grade_fr"],
-                                    traces=products["traces"],
-                                    allergens=products["allergens"],
-                                    url=products["url"],
-                                    id_openfoodfact=products["id"],
-                                    image_front_url=products["image_front_url"],
+                                    name=products[
+                                        "product_name"
+                                    ],
+                                    nutrition_grade_fr=products[
+                                        "nutrition_grade_fr"
+                                    ],
+                                    traces=products[
+                                        "traces"
+                                    ],
+                                    allergens=products[
+                                        "allergens"
+                                    ],
+                                    url=products[
+                                        "url"
+                                    ],
+                                    id_openfoodfact=products[
+                                        "id"
+                                    ],
+                                    image_front_url=products[
+                                        "image_front_url"
+                                    ],
                                     image_front_small_url=products[
                                         "image_front_small_url"
                                     ],
-                                    fat_100g=nutriments["fat_100g"],
-                                    salt_100g=nutriments["salt_100g"],
-                                    saturated_fat_100g=nutriments["saturated-fat_100g"],
-                                    sugars_100g=nutriments["sugars_100g"],
-                                    ingredients_text=products["ingredients_text"],
+                                    fat_100g=nutriments[
+                                        "fat_100g"
+                                    ],
+                                    salt_100g=nutriments[
+                                        "salt_100g"
+                                    ],
+                                    saturated_fat_100g=nutriments[
+                                        "saturated-fat_100g"
+                                    ],
+                                    sugars_100g=nutriments[
+                                        "sugars_100g"
+                                    ],
+                                    ingredients_text=products[
+                                        "ingredients_text"
+                                    ],
                                 )
                                 p.save()
                                 p.category.add(c)
@@ -184,7 +220,7 @@ class Command(BaseCommand):
                 id = list_products[1]
                 try:
                     item = Product.objects.get(pk=id)
-                except:
+                except Product.DoesNotExist:
                     item = None
                 if item is not None:
                     print(item.name)
